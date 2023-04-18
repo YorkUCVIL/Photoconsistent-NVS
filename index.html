@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Photometric Consistent NVS with Diffusion Models.">
+  <meta name="keywords" content="Diffusion, 3D, consistent, photometric, novel view synthesis, extrapolation, RealEstate10k">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Consistent Diffusion</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;%E2%9C%A8&lt;/text&gt;&lt;/svg&gt;">
+
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <!--<link rel="stylesheet" href="./static/css/bulma-carousel.min.css">-->
+  <!--<link rel="stylesheet" href="./static/css/bulma-slider.min.css">-->
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+  <!--<script defer src="./static/js/fontawesome.all.min.js"></script>-->
+  <!--<script src="./static/js/bulma-carousel.min.js"></script>-->
+  <!--<script src="./static/js/bulma-slider.min.js"></script>-->
+  <!--<script src="./static/js/index.js"></script>-->
+  <script src="math.js"></script>
+  <script src="main.js"></script>
+  <head>
+      <style media = "all">
+        body {
+          font-family: 'Noto Sans', sans-serif;
+        }
+        .selectable:hover{
+          /* outline: 3px solid rgb(101, 4, 116); */
+          cursor: pointer;
+          border-radius: 1em;
+          -moz-box-shadow: 0 0 10px #ccc;
+          -webkit-box-shadow: 0 0 10px #ccc;
+          box-shadow: 0 0 10px #978e8e;
+        }
+        .project_author{
+            display:block;
+            text-align: center;
+        }
+       .author_icon{
+            box-shadow: 0 0 1em grey;
+            border-radius: 50%;
+            width:100%;
+        }
+      </style>
+   </head>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body" style="padding-bottom:0;">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title text-muted">
+		  Long-Term Photometric Consistent Novel View Synthesis with Diffusion Models
+          </h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="#authors">Jason J. Yu</a><sup>1,2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="#authors">Fereshteh Forghani</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="#authors">Konstantinos G. Derpanis</a><sup>1,2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="#authors">Marcus A. Brubaker</a><sup>1,2</sup>,
+            </span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>York University,</span>
+            <span class="author-block"><sup>2</sup>Vector Institute for AI</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <img src="teaser.svg" style="float: right; margin-left:20px; margin-bottom: 10px" width="100%;" />
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p class="content has-text-justified">
+Novel view synthesis from a single input image is a challenging task, where the goal is to generate a new view of a scene from a desired camera pose that may be separated by a large motion. The highly uncertain nature of this synthesis task due to unobserved elements within the scene (i.e., occlusion) and outside the field-of-view makes the use of generative models appealing to capture the variety of possible outputs. In this paper, we propose a novel generative model which is capable of producing a sequence of photorealistic images consistent with a specified sequence and a single starting image. Our approach is centred on an autoregressive conditional diffusion-based model capable of interpolating visible scene elements and extrapolating unobserved regions in a view and geometry consistent manner. Conditioning is limited to an image capturing a single camera view and the (relative) pose of the new camera view. To measure the consistency over a sequence of generated views, we introduce a new metric, the thresholded <i>symmetric epipolar distance (TSED)</i>, to measure the number of consistent frame pairs in a sequence. While previous methods have been shown to produce high quality images and consistent semantics across pairs of views, we show empirically with our metric that they are often in consistent with the desired camera poses. In contrast, we demonstrate that our method produces both photorealistic and view-consistent imagery.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+<br/>
+
+
+<section class="hero teaser" id="authors">
+  <div class="hero-body">
+  <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;padding-left:2em;padding-right:2em;' class="container is-max-desktop has-text-centered">
+    <br/>
+    <h2 class="title">Authors</h2>
+    <div class="row">
+        <div class="col-6" style='flex:0 0 25%;max-width:33%;'>
+            <a class="project_author" href="https://jasonjyu.com/">
+                <img class="author_icon" src="assets/authors/jason_j_yu.png">
+                <p style='margin-top:0.5em;font-size:1.3em;font-weight:bold;'>Jason J. Yu</p>
+            </a>
+        </div>
+        <div class="col-6" style='flex:0 0 25%;max-width:33%;'>
+            <a class="project_author">
+                <img class="author_icon" src="assets/authors/fereshteh.png">
+                <p style='margin-top:0.5em;font-size:1.3em;font-weight:bold;'>Fereshteh Forghani</p>
+            </a>
+        </div>
+        <div class="col-6" style='flex:0 0 25%;max-width:33%;'>
+            <a class="project_author" href="https://csprofkgd.github.io/">
+                <img class="author_icon" src="assets/authors/kosta.jpeg">
+                <p style='margin-top:0.5em;font-size:1.3em;font-weight:bold;'>Konstantinos G. Derpanis</p>
+            </a>
+        </div>
+        <div class="col-6" style='flex:0 0 25%;max-width:33%;'>
+            <a class="project_author" href="https://mbrubake.github.io/">
+                <img class="author_icon" src="assets/authors/marcus_brubaker.png">
+                <p style='margin-top:0.5em;font-size:1.3em;font-weight:bold;'>Marcus A. Brubaker</p>
+            </a>
+        </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section class="hero teaser" id="authors">
+  <div class="hero-body">
+  <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;padding-left:2em;padding-right:2em;' class="container is-max-desktop has-text-centered">
+    <br/>
+    <h2 class="title">Material</h2>
+    Coming soon!
+  </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="hero-body">
+  <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+    <br/>
+    <h2 class="title">Qualitative Results - In-Distribution Trajectories</h2>
+      <div class="content has-text-justified">
+        <p class="content has-text-justified">
+	  The following examples show generations conditioned on in-distribution trajectories, the standard protocol in previous work.
+	  Specifically, each generation is sampled using an initial image and trajectory from the same video in the test dataset.
+          Select a scene from the menu below.
+          You can also select different samples from the same scene and trajectory to see multiple plausible extrapolations for each scene.
+          Then use the frame controls to view the generated views from all the models. 
+          We also include automated playback controls to cycle the frames forwards and backwards at various rates.
+        </p>
+      </div>
+      <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+        <h4 style="text-align:left;">Scene Selection</h2>
+        <div id='real-scene-selector' class="row">
+        </div>
+      </div>
+      <br/>
+      <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+        <h4 style="text-align:left;">Sample Instance</h2>
+        <p class="content has-text-justified">
+		The stochastic nature of these models allow multiple plausible realities to be sampled. We provide three here.
+        </p>
+        <div class="row">
+          <div id='real_sample_selector_1' style='margin-left:1em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='real_viewer.change_sample(0);'> 1 </div>
+          <div id='real_sample_selector_2' style='margin-left:0.4em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='real_viewer.change_sample(1);'> 2 </div>
+          <div id='real_sample_selector_3' style='margin-left:0.4em;margin-right:1em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='real_viewer.change_sample(2);'> 3 </div>
+        </div>
+      </div>
+      <br/>
+      <h3 class="subtitle">Samples</h2>
+      <div class="row">
+        <div class=col-3 style='flex:0 0 33%;max-width:33%;'>
+          <img id='real-geogpt' style='width:100%;' src="assets/individual-frames/orbit/0000/sde/00/0001.webp">
+          <h5 class="subtitle">GeoGPT</h5>
+        </div>
+        <div class=col-3 style='flex:0 0 33%;max-width:33%;'>
+          <img id='real-lookout' style='width:100%;' src="assets/individual-frames/orbit/0000/sde/00/0001.webp">
+          <h5 class="subtitle">Lookout</h5>
+        </div>
+        <div class=col-3 style='flex:0 0 33%;max-width:33%;'>
+          <img id='real-sde' style='width:100%;' src="assets/individual-frames/orbit/0000/sde/00/0001.webp">
+          <h5 class="subtitle">Ours</h5>
+        </div>
+      </div>
+      <br/>
+      <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+        <h4 style="text-align:left;">Frame Control (automated playback or manual slider)</h2>
+        <p class="content has-text-justified">
+		notice how generated scenes diverge more with frames further to the right of the slider.
+        </p>
+        <div class="row">
+          <div class="col-2"> <div onclick='real_viewer.stop_anim();' class=selectable>Stop</div> </div>
+          <div class="col-2"> <div onclick='real_viewer.cycle_frames(200);' class=selectable>Cycle 5fps</div> </div>
+          <div class="col-2"> <div onclick='real_viewer.cycle_frames(100);' class=selectable>Cycle 10fps</div> </div>
+        </div>
+	<br/>
+        <div class="row">
+          <input style="width:100%;margin-left:1em;margin-right:1em;" type="range" min="0" max="19" value="0" id='real_frame_control' oninput='real_viewer.change_frame(document.getElementById("real_frame_control").value);'>
+        </div>
+      </div>
+  </div>
+  </div>
+</section>
+
+<br/>
+
+
+<section class="hero teaser">
+  <div class="hero-body">
+  <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+    <br/>
+    <h2 class="title">Qualitative Results - Out-of-Distribution Trajectories</h2>
+    <div class="content has-text-justified">
+      <p class="content has-text-justified">
+        The following examples show the ability of our model to generate novel views using a variety of trajectories not typically found in the training data.
+        Select a scene and motion type for the camera trajectory.
+        You can also select different samples from the same scene and trajectory to see multiple plausible extrapolations for each scene.
+        Then use the frame controls to view the generated views from all the models. 
+        We also include automated playback controls to cycle the frames forwards and backwards at various rates.
+      </p>
+    </div>
+      <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+        <h4 style="text-align:left;">Scene Selection</h2>
+        <div id='novel-scene-selector' class="row">
+        </div>
+      </div>
+      <br/>
+      <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+        <h4 style="text-align:left;">Motion Selection</h2>
+        <div class="row">
+          <div class="col-2"> <div id='orbit_selector' onclick='novel_viewer.change_variant("orbit");' class=selectable>Orbit</div> </div>
+          <div class="col-2"> <div id='spin_selector' onclick='novel_viewer.change_variant("spin");' class=selectable>Spin</div> </div>
+          <div class="col-2"> <div id='hop_selector' onclick='novel_viewer.change_variant("hop");' class=selectable>Hop</div> </div>
+        </div>
+      </div>
+      <br/>
+      <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+        <h4 style="text-align:left;">Sample Instance</h2>
+        <p class="content has-text-justified">
+		The stochastic nature of these models allow multiple plausible realities to be sampled. We provide three here.
+        </p>
+        <div class="row">
+          <div id='novel_sample_selector_1' style='margin-left:1em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='novel_viewer.change_sample(0);'> 1 </div>
+          <div id='novel_sample_selector_2' style='margin-left:0.4em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='novel_viewer.change_sample(1);'> 2 </div>
+          <div id='novel_sample_selector_3' style='margin-left:0.4em;margin-right:1em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='novel_viewer.change_sample(2);'> 3 </div>
+        </div>
+      </div>
+      <br/>
+      <h3 class="subtitle">Samples</h2>
+      <div class="row">
+        <div class=col-3 style='flex:0 0 33%;max-width:33%;'>
+          <img id='novel-geogpt' style='width:100%;' src="assets/individual-frames/orbit/0000/sde/00/0001.webp">
+          <h5 class="subtitle">GeoGPT</h5>
+        </div>
+        <div class=col-3 style='flex:0 0 33%;max-width:33%;'>
+          <img id='novel-lookout' style='width:100%;' src="assets/individual-frames/orbit/0000/sde/00/0001.webp">
+          <h5 class="subtitle">Lookout</h5>
+        </div>
+        <div class=col-3 style='flex:0 0 33%;max-width:33%;'>
+          <img id='novel-sde' style='width:100%;' src="assets/individual-frames/orbit/0000/sde/00/0001.webp">
+          <h5 class="subtitle">Ours</h5>
+        </div>
+      </div>
+      <br/>
+      <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+        <h4 style="text-align:left;">Frame Control (automated playback or manual slider)</h2>
+        <p class="content has-text-justified">
+		Notice how generated scenes diverge more with frames further to the right of the slider.
+        </p>
+        <div class="row">
+          <div class="col-2"> <div onclick='novel_viewer.stop_anim();' class=selectable>Stop animation</div> </div>
+          <div class="col-2"> <div onclick='novel_viewer.cycle_frames(200);' class=selectable>Play at 5fps</div> </div>
+          <div class="col-2"> <div onclick='novel_viewer.cycle_frames(100);' class=selectable>Play at 10fps</div> </div>
+        </div>
+	<br/>
+        <div class="row">
+          <input style="width:100%;margin-left:1em;margin-right:1em;" type="range" min="0" max="9" value="0" id='novel_frame_control' oninput='novel_viewer.change_frame(document.getElementById("novel_frame_control").value);'>
+        </div>
+      </div>
+  </div>
+  </div>
+</section>
+
+<br/>
+
+<section class="hero teaser">
+  <div class="hero-body">
+  <div style='box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em; border-radius: 1em;' class="container is-max-desktop has-text-centered">
+    <br/>
+    <h2 class="title">Thresholded Symmetric Epipolar Distance (TSED)</h2>
+    <div class="content has-text-justified">
+      <p class="content has-text-justified">
+        With the camera pose used to condition the view generation, we first compute the fundamental matrix <img style='height:0.9em;position:relative;bottom:0.2em;' src="assets/tsed/svg/F.svg">.
+	Then given a feature point <img style='height:0.85em;position:relative;top:0.1em;' src="assets/tsed/svg/p.svg"> on the first image, the fundamental matrix constrains the location of <img style='height:1.25em;position:relative;bottom:0.1em;' src="assets/tsed/svg/p'.svg"> to a position on the line, <img style='height:1.35em;position:relative;bottom:0.2em;' src="assets/tsed/svg/epipolar.svg">, on the second image.
+        The Symmetric Epipolar Distance (SED) given the points <img style='height:0.85em;position:relative;top:0.1em;' src="assets/tsed/svg/p.svg">, <img style='height:1.25em;position:relative;bottom:0.1em;' src="assets/tsed/svg/p'.svg">, and fundamental matrix <img style='height:0.9em;position:relative;bottom:0.2em;' src="assets/tsed/svg/F.svg"> is defined as:
+        <div class="text-center">
+          <img src="assets/tsed/svg/sed.svg" width="40%">
+        </div>
+	<br/>
+        where <img style='height:1.2em;' src="assets/tsed/svg/dist.svg"> is the minimum Euclidean distance between point <img style='height:1.25em;position:relative;bottom:0.1em;' src="assets/tsed/svg/p'.svg"> and the epipolar line.
+	Given a set of feature correspondences <img style='height:1.2em;position:relative;bottom:0.1em;' src="assets/tsed/svg/M.svg">, we define the pair of images to be consistent if there are a sufficient number of matching features, and the median SED over M is less than a certain threshold:
+	<br/>
+        <div class="text-center">
+          <img style='height:4.3em;' src="assets/tsed/svg/consistency.svg">
+        </div>
+	<br/>
+        The use of epipolar geometry does not require knowledge of the scene geometry or scale. Using this metric, we can evaluate the consistency of the generated novel views by computing which fraction of neighbouring views are
+        consistent.
+      </p>
+    </div>
+  </div>
+  </div>
+</section>
+
+<br/>
+
+
+<section class="hero teaser">
+  <div class="hero-body">
+  <div style='box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em; border-radius: 15px;' class="container is-max-desktop has-text-centered">
+    <br/>
+    <h2 class="title">Visualization of SED</h2>
+    <div class="content has-text-justified">
+      <p class="content has-text-justified">
+	Select two corresponding points in each image below.
+	The epipolar line from each point will be drawn in the images with the same colour as the point.
+	When both points have been selected, the minimum length line will be drawn between each point and its epipolar line, and the computed <i>SED</i> will be displayed under the image.
+	Notice that the SED is low when selecting the same points in the scene, while the SED is high when different points in the scene are selected for each image.
+      </p>
+    </div>
+    <canvas id='epipolar-canvas' width='1024' height='512' style='cursor:crosshair;outline: 3px solid lightblue;width:100%;'></canvas>
+    <div id='sed-display'> Null </div>
+  </div>
+  </div>
+</section>
+
+<!--<section class="section" id="BibTeX">-->
+<!--  <div class="container is-max-desktop content">-->
+<!--    <h2 class="title">BibTeX</h2>-->
+<!--    <pre><code>@inproceedings{placeholder,-->
+<!--      title=Placeholdernet,-->
+<!--      author={placeholder people},-->
+<!--      year={2023},-->
+<!--      booktitle={placeholder},-->
+<!--}</code></pre>-->
+<!--  </div>-->
+<!--</section>-->
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            Website template borrowed from <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a> and <a href="https://github.com/nesf3d/nesf3d.github.io">NeSF</a>. 
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
