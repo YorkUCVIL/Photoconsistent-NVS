@@ -16,7 +16,7 @@ class Sample_viewer{
 		this.interval_id = null;
 		this.anim_dir = 1;
 		for (let i=0;i<this.n_scenes;i++){
-			document.getElementById(`${this.prefix}-scene-selector`).innerHTML += `<div onclick="${this.prefix}_viewer.change_scene(\'${i.toString().padStart(4,0)}\');" class="col-1"> <img style="border-radius:1em;" class=selectable src="assets/icons/${this.prefix}/${i.toString().padStart(4,0)}.webp"> </div>`;
+			document.getElementById(`${this.prefix}-scene-selector`).innerHTML += `<div onclick="${this.prefix}_viewer.change_scene(\'${i.toString().padStart(4,0)}\');" class="col-1" style="padding:0em;margin-left:0.5em;"> <img style="border-radius:1em;" class=selectable src="assets/icons/${this.prefix}/${i.toString().padStart(4,0)}.webp"> </div>`;
 		}
 	}
 	change_scene(idx){

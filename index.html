@@ -49,6 +49,15 @@
             border-radius: 50%;
             width:100%;
         }
+       .cite_bib{
+                display: block;
+                background:#e0e0e0;
+                font-family: monospace;
+                padding:10px;
+                border-radius: 10px;
+                overflow:scroll;
+                white-space: nowrap;
+        }
       </style>
    </head>
 </head>
@@ -60,7 +69,7 @@
       <div class="columns is-centered">
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title text-muted">
-		  Long-Term Photometric Consistent Novel View Synthesis with Diffusion Models
+                  Long-Term Photometric Consistent Novel View Synthesis with Diffusion Models
           </h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
@@ -114,25 +123,25 @@ Novel view synthesis from a single input image is a challenging task, where the 
     <br/>
     <h2 class="title">Authors</h2>
     <div class="row">
-        <div class="col-6" style='flex:0 0 25%;max-width:33%;'>
+        <div class="col-6" style='flex:0 0 25%;max-width:25%;'>
             <a class="project_author" href="https://jasonjyu.com/">
                 <img class="author_icon" src="assets/authors/jason_j_yu.png">
                 <p style='margin-top:0.5em;font-size:1.3em;font-weight:bold;'>Jason J. Yu</p>
             </a>
         </div>
-        <div class="col-6" style='flex:0 0 25%;max-width:33%;'>
-            <a class="project_author">
+        <div class="col-6" style='flex:0 0 25%;max-width:25%;'>
+            <a class="project_author" href="https://fereshtehforghani.github.io/">
                 <img class="author_icon" src="assets/authors/fereshteh.png">
                 <p style='margin-top:0.5em;font-size:1.3em;font-weight:bold;'>Fereshteh Forghani</p>
             </a>
         </div>
-        <div class="col-6" style='flex:0 0 25%;max-width:33%;'>
+        <div class="col-6" style='flex:0 0 25%;max-width:25%;'>
             <a class="project_author" href="https://csprofkgd.github.io/">
                 <img class="author_icon" src="assets/authors/kosta.jpeg">
                 <p style='margin-top:0.5em;font-size:1.3em;font-weight:bold;'>Konstantinos G. Derpanis</p>
             </a>
         </div>
-        <div class="col-6" style='flex:0 0 25%;max-width:33%;'>
+        <div class="col-6" style='flex:0 0 25%;max-width:25%;'>
             <a class="project_author" href="https://mbrubake.github.io/">
                 <img class="author_icon" src="assets/authors/marcus_brubaker.png">
                 <p style='margin-top:0.5em;font-size:1.3em;font-weight:bold;'>Marcus A. Brubaker</p>
@@ -149,9 +158,13 @@ Novel view synthesis from a single input image is a challenging task, where the 
     <br/>
     <h2 class="title">Material</h2>
     <div class="row">
-        <a style='width:15%;margin:auto;' href='https://arxiv.org/abs/2304.10700'>
+        <a style='max-width:min(15em,40%);margin:auto;margin-right:1em;' href='https://arxiv.org/abs/2304.10700'>
             <img style='box-shadow: 0 0 1em grey;' src='assets/paper_preview.png'>
-	    <p style='margin-top:1em;'>arXiv</p>
+            <p style='margin-top:1em;'>arXiv</p>
+        </a>
+        <a style='max-width:min(15em,40%);margin:auto;margin-left:1em;' href='#BibTeX'>
+            <img style='border-radius:0.5em;padding:1em;box-shadow: 0 0 1em grey;' src='assets/BibTeX_logo.svg'>
+            <p style='margin-top:1em;'>BibTex</p>
         </a>
     </div>
   </div>
@@ -162,11 +175,11 @@ Novel view synthesis from a single input image is a challenging task, where the 
   <div class="hero-body">
   <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
     <br/>
-    <h2 class="title">Qualitative Results: In-Distribution Trajectories</h2>
+    <h2 class="title">RealEstate10K Qualitative Results: In-Distribution Trajectories</h2>
       <div class="content has-text-justified">
         <p class="content has-text-justified">
-	  The following examples show generations conditioned on in-distribution trajectories, the standard protocol in previous work.
-	  Specifically, each generation is sampled using an initial image and trajectory from the same video in the test dataset.
+          The following examples show generations conditioned on in-distribution trajectories, the standard protocol in previous work.
+          Specifically, each generation is sampled using an initial image and trajectory from the same video in the test dataset.
           Select a scene from the menu below.
           You can also select different samples from the same scene and trajectory to see multiple plausible extrapolations for each scene.
           Then use the frame controls to view the generated views from all the models. 
@@ -175,14 +188,14 @@ Novel view synthesis from a single input image is a challenging task, where the 
       </div>
       <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
         <h4 style="text-align:left;">Scene Selection</h2>
-        <div id='real-scene-selector' class="row">
+        <div id='real-scene-selector' class="row" style="margin-left:0.1em;">
         </div>
       </div>
       <br/>
       <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
         <h4 style="text-align:left;">Sample Instance</h2>
         <p class="content has-text-justified">
-		The stochastic nature of these models allow multiple plausible realities to be sampled. We provide three here.
+                The stochastic nature of these models allow multiple plausible realities to be sampled. We provide three here.
         </p>
         <div class="row">
           <div id='real_sample_selector_1' style='margin-left:1em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='real_viewer.change_sample(0);'> 1 </div>
@@ -210,14 +223,14 @@ Novel view synthesis from a single input image is a challenging task, where the 
       <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
         <h4 style="text-align:left;">Frame Control (automated playback or manual slider)</h2>
         <p class="content has-text-justified">
-		notice how generated scenes diverge more with frames further to the right of the slider.
+                notice how generated scenes diverge more with frames further to the right of the slider.
         </p>
         <div class="row">
           <div class="col-2"> <div onclick='real_viewer.stop_anim();' class=selectable>Stop</div> </div>
           <div class="col-2"> <div onclick='real_viewer.cycle_frames(200);' class=selectable>Cycle 5fps</div> </div>
           <div class="col-2"> <div onclick='real_viewer.cycle_frames(100);' class=selectable>Cycle 10fps</div> </div>
         </div>
-	<br/>
+        <br/>
         <div class="row">
           <input style="width:100%;margin-left:1em;margin-right:1em;" type="range" min="0" max="19" value="0" id='real_frame_control' oninput='real_viewer.change_frame(document.getElementById("real_frame_control").value);'>
         </div>
@@ -233,7 +246,7 @@ Novel view synthesis from a single input image is a challenging task, where the 
   <div class="hero-body">
   <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
     <br/>
-    <h2 class="title">Qualitative Results: Out-of-Distribution Trajectories</h2>
+    <h2 class="title">RealEstate10K Qualitative Results: Out-of-Distribution Trajectories</h2>
     <div class="content has-text-justified">
       <p class="content has-text-justified">
         The following examples show the ability of our model to generate novel views using a variety of trajectories not typically found in the training data.
@@ -245,7 +258,7 @@ Novel view synthesis from a single input image is a challenging task, where the 
     </div>
       <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
         <h4 style="text-align:left;">Scene Selection</h2>
-        <div id='novel-scene-selector' class="row">
+        <div id='novel-scene-selector' class="row" style="margin-left:0.1em;">
         </div>
       </div>
       <br/>
@@ -261,7 +274,7 @@ Novel view synthesis from a single input image is a challenging task, where the 
       <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
         <h4 style="text-align:left;">Sample Instance</h2>
         <p class="content has-text-justified">
-		The stochastic nature of these models allow multiple plausible realities to be sampled. We provide three here.
+                The stochastic nature of these models allow multiple plausible realities to be sampled. We provide three here.
         </p>
         <div class="row">
           <div id='novel_sample_selector_1' style='margin-left:1em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='novel_viewer.change_sample(0);'> 1 </div>
@@ -289,14 +302,14 @@ Novel view synthesis from a single input image is a challenging task, where the 
       <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
         <h4 style="text-align:left;">Frame Control (automated playback or manual slider)</h2>
         <p class="content has-text-justified">
-		Notice how generated scenes diverge more with frames further to the right of the slider.
+                Notice how generated scenes diverge more with frames further to the right of the slider.
         </p>
         <div class="row">
           <div class="col-2"> <div onclick='novel_viewer.stop_anim();' class=selectable>Stop animation</div> </div>
           <div class="col-2"> <div onclick='novel_viewer.cycle_frames(200);' class=selectable>Play at 5fps</div> </div>
           <div class="col-2"> <div onclick='novel_viewer.cycle_frames(100);' class=selectable>Play at 10fps</div> </div>
         </div>
-	<br/>
+        <br/>
         <div class="row">
           <input style="width:100%;margin-left:1em;margin-right:1em;" type="range" min="0" max="9" value="0" id='novel_frame_control' oninput='novel_viewer.change_frame(document.getElementById("novel_frame_control").value);'>
         </div>
@@ -315,19 +328,19 @@ Novel view synthesis from a single input image is a challenging task, where the 
     <div class="content has-text-justified">
       <p class="content has-text-justified">
         With the camera pose used to condition the view generation, we first compute the fundamental matrix <img style='height:0.9em;position:relative;bottom:0.2em;' src="assets/tsed/svg/F.svg">.
-	Then given a feature point <img style='height:0.85em;position:relative;top:0.1em;' src="assets/tsed/svg/p.svg"> on the first image, the fundamental matrix constrains the location of <img style='height:1.25em;position:relative;bottom:0.1em;' src="assets/tsed/svg/p'.svg"> to a position on the line, <img style='height:1.35em;position:relative;bottom:0.2em;' src="assets/tsed/svg/epipolar.svg">, on the second image.
+        Then given a feature point <img style='height:0.85em;position:relative;top:0.1em;' src="assets/tsed/svg/p.svg"> on the first image, the fundamental matrix constrains the location of <img style='height:1.25em;position:relative;bottom:0.1em;' src="assets/tsed/svg/p'.svg"> to a position on the line, <img style='height:1.35em;position:relative;bottom:0.2em;' src="assets/tsed/svg/epipolar.svg">, on the second image.
         The Symmetric Epipolar Distance (SED) given the points <img style='height:0.85em;position:relative;top:0.1em;' src="assets/tsed/svg/p.svg">, <img style='height:1.25em;position:relative;bottom:0.1em;' src="assets/tsed/svg/p'.svg">, and fundamental matrix <img style='height:0.9em;position:relative;bottom:0.2em;' src="assets/tsed/svg/F.svg"> is defined as:
         <div class="text-center">
           <img src="assets/tsed/svg/sed.svg" width="40%">
         </div>
-	<br/>
+        <br/>
         where <img style='height:1.2em;' src="assets/tsed/svg/dist.svg"> is the minimum Euclidean distance between point <img style='height:1.25em;position:relative;bottom:0.1em;' src="assets/tsed/svg/p'.svg"> and the epipolar line.
-	Given a set of feature correspondences <img style='height:1.2em;position:relative;bottom:0.1em;' src="assets/tsed/svg/M.svg">, we define the pair of images to be consistent if there are a sufficient number of matching features, and the median SED over M is less than a certain threshold:
-	<br/>
+        Given a set of feature correspondences <img style='height:1.2em;position:relative;bottom:0.1em;' src="assets/tsed/svg/M.svg">, we define the pair of images to be consistent if there are a sufficient number of matching features, and the median SED over M is less than a certain threshold:
+        <br/>
         <div class="text-center">
           <img style='height:4.3em;' src="assets/tsed/svg/consistency.svg">
         </div>
-	<br/>
+        <br/>
         The use of epipolar geometry does not require knowledge of the scene geometry or scale. Using this metric, we can evaluate the consistency of the generated novel views by computing which fraction of neighbouring views are
         consistent.
       </p>
@@ -346,10 +359,10 @@ Novel view synthesis from a single input image is a challenging task, where the 
     <h2 class="title">Visualization of SED</h2>
     <div class="content has-text-justified">
       <p class="content has-text-justified">
-	Select two corresponding points in each image below.
-	The epipolar line from each point will be drawn in the images with the same colour as the point.
-	When both points have been selected, the minimum length line will be drawn between each point and its epipolar line, and the computed <i>SED</i> will be displayed under the image.
-	Notice that the SED is low when selecting the same points in the scene, while the SED is high when different points in the scene are selected for each image.
+        Select two corresponding points in each image below.
+        The epipolar line from each point will be drawn in the images with the same colour as the point.
+        When both points have been selected, the minimum length line will be drawn between each point and its epipolar line, and the computed <i>SED</i> will be displayed under the image.
+        Notice that the SED is low when selecting the same points in the scene, while the SED is high when different points in the scene are selected for each image.
       </p>
     </div>
     <canvas id='epipolar-canvas' width='1024' height='512' style='cursor:crosshair;outline: 3px solid lightblue;width:100%;'></canvas>
@@ -358,17 +371,17 @@ Novel view synthesis from a single input image is a challenging task, where the 
   </div>
 </section>
 
-<!--<section class="section" id="BibTeX">-->
-<!--  <div class="container is-max-desktop content">-->
-<!--    <h2 class="title">BibTeX</h2>-->
-<!--    <pre><code>@inproceedings{placeholder,-->
-<!--      title=Placeholdernet,-->
-<!--      author={placeholder people},-->
-<!--      year={2023},-->
-<!--      booktitle={placeholder},-->
-<!--}</code></pre>-->
-<!--  </div>-->
-<!--</section>-->
+<section class="section" id="BibTeX" style="padding-top:0;">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre style="border-radius:1em;"><code>@inproceedings{yu2023photoconsistentnvs,
+  title={Long-Term Photometric Consistent Novel View Synthesis with Diffusion Models},
+  author={Jason J. Yu and Fereshteh Forghani and Konstantinos G. Derpanis and Marcus A. Brubaker},
+  booktitle={{Proceedings of the International Conference on Computer Vision ({ICCV})}},
+  year={2023},
+}</code></pre>
+  </div>
+</section>
 
 <footer class="footer">
   <div class="container">
