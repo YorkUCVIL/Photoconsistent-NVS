@@ -1,9 +1,10 @@
 
 
 
-var methods = ['geogpt','lookout','sde'];
+var real_methods = ['geogpt','lookout','sde'];
+var mp3d_methods = ['lookout','sde'];
 class Sample_viewer{
-	constructor(prefix,max_idx,n_scenes,variants){
+	constructor(prefix,max_idx,n_scenes,variants,methods){
 		this.variants = variants;
 		this.n_scenes = n_scenes;
 		this.prefix = prefix;
@@ -15,6 +16,7 @@ class Sample_viewer{
 		this.need_stop_anim = false;
 		this.interval_id = null;
 		this.anim_dir = 1;
+		this.methods = methods;
 		for (let i=0;i<this.n_scenes;i++){
 			document.getElementById(`${this.prefix}-scene-selector`).innerHTML += `<div onclick="${this.prefix}_viewer.change_scene(\'${i.toString().padStart(4,0)}\');" class="col-1" style="padding:0em;margin-left:0.5em;"> <img style="border-radius:1em;" class=selectable src="assets/icons/${this.prefix}/${i.toString().padStart(4,0)}.webp"> </div>`;
 		}
@@ -50,12 +52,14 @@ class Sample_viewer{
 		document.getElementById(`${this.prefix}_sample_selector_${idx+1}`).style.backgroundColor = 'lightgrey';
 	}
 	update_ims(){
-		for (let method of methods){
+		for (let method of this.methods){
 			if (this.cur_frame == 0){
 				document.getElementById(`${this.prefix}-${method}`).src = `assets/individual-frames/initial-frames/${this.prefix}/${this.base_im}.webp`;
 			}else{
 				let frame_padded = this.cur_frame.toString().padStart(4,0);
 				let sample_padded = this.cur_sample.toString().padStart(2,0);
+				console.log(this.prefix);
+				console.log(this.variant);
 				document.getElementById(`${this.prefix}-${method}`).src = `assets/individual-frames/${this.variant}/${this.base_im}/${method}/${sample_padded}/${frame_padded}.webp`;
 			}
 		}
@@ -298,10 +302,14 @@ class TSED_viewer{
 var novel_viewer = null;
 var real_viewer = null;
 var tsed_viewer = null;
+var mp3d_novel_viewer = null;
+var mp3d_real_viewer = null;
 
 document.addEventListener("DOMContentLoaded", function() {
-	novel_viewer = new Sample_viewer('novel',9,4,['orbit','spin','hop']);
-	real_viewer = new Sample_viewer('real',20,3,null);
+	novel_viewer = new Sample_viewer('novel',9,4,['orbit','spin','hop'],real_methods);
+	real_viewer = new Sample_viewer('real',20,3,null,real_methods);
+	mp3d_novel_viewer = new Sample_viewer('mp3d_novel',9,3,['mp3d_orbit','mp3d_spin','mp3d_hop'],mp3d_methods);
+	mp3d_real_viewer = new Sample_viewer('mp3d_real',20,3,null,mp3d_methods);
 	tsed_viewer = new TSED_viewer();
 	novel_viewer.change_frame(0);
 	novel_viewer.change_sample(0);
@@ -309,6 +317,12 @@ document.addEventListener("DOMContentLoaded", function() {
 	real_viewer.change_frame(0);
 	real_viewer.change_sample(0);
 	real_viewer.change_variant('real');
+	mp3d_novel_viewer.change_frame(0);
+	mp3d_novel_viewer.change_sample(0);
+	mp3d_novel_viewer.change_variant('mp3d_orbit');
+	mp3d_real_viewer.change_frame(0);
+	mp3d_real_viewer.change_sample(0);
+	mp3d_real_viewer.change_variant('mp3d_real');
 	debug();
 });
 

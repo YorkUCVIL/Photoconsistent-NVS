@@ -212,7 +212,7 @@ Novel view synthesis from a single input image is a challenging task, where the 
         </div>
         <div class=col-3 style='flex:0 0 33%;max-width:33%;'>
           <img id='real-lookout' style='width:100%;' src="assets/individual-frames/orbit/0000/sde/00/0001.webp">
-          <h5 class="subtitle">Lookout</h5>
+          <h5 class="subtitle">LookOut</h5>
         </div>
         <div class=col-3 style='flex:0 0 33%;max-width:33%;'>
           <img id='real-sde' style='width:100%;' src="assets/individual-frames/orbit/0000/sde/00/0001.webp">
@@ -223,10 +223,10 @@ Novel view synthesis from a single input image is a challenging task, where the 
       <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
         <h4 style="text-align:left;">Frame Control (automated playback or manual slider)</h2>
         <p class="content has-text-justified">
-                notice how generated scenes diverge more with frames further to the right of the slider.
+                Notice how generated scenes diverge more with frames further to the right of the slider.
         </p>
         <div class="row">
-          <div class="col-2"> <div onclick='real_viewer.stop_anim();' class=selectable>Stop</div> </div>
+          <div class="col-2"> <div onclick='real_viewer.stop_anim();' class=selectable>Stop animation</div> </div>
           <div class="col-2"> <div onclick='real_viewer.cycle_frames(200);' class=selectable>Cycle 5fps</div> </div>
           <div class="col-2"> <div onclick='real_viewer.cycle_frames(100);' class=selectable>Cycle 10fps</div> </div>
         </div>
@@ -291,7 +291,7 @@ Novel view synthesis from a single input image is a challenging task, where the 
         </div>
         <div class=col-3 style='flex:0 0 33%;max-width:33%;'>
           <img id='novel-lookout' style='width:100%;' src="assets/individual-frames/orbit/0000/sde/00/0001.webp">
-          <h5 class="subtitle">Lookout</h5>
+          <h5 class="subtitle">LookOut</h5>
         </div>
         <div class=col-3 style='flex:0 0 33%;max-width:33%;'>
           <img id='novel-sde' style='width:100%;' src="assets/individual-frames/orbit/0000/sde/00/0001.webp">
@@ -306,8 +306,8 @@ Novel view synthesis from a single input image is a challenging task, where the 
         </p>
         <div class="row">
           <div class="col-2"> <div onclick='novel_viewer.stop_anim();' class=selectable>Stop animation</div> </div>
-          <div class="col-2"> <div onclick='novel_viewer.cycle_frames(200);' class=selectable>Play at 5fps</div> </div>
-          <div class="col-2"> <div onclick='novel_viewer.cycle_frames(100);' class=selectable>Play at 10fps</div> </div>
+          <div class="col-2"> <div onclick='novel_viewer.cycle_frames(200);' class=selectable>Cycle 5fps</div> </div>
+          <div class="col-2"> <div onclick='novel_viewer.cycle_frames(100);' class=selectable>Cycle 10fps</div> </div>
         </div>
         <br/>
         <div class="row">
@@ -319,6 +319,148 @@ Novel view synthesis from a single input image is a challenging task, where the 
 </section>
 
 <br/>
+
+<section class="hero teaser">
+  <div class="hero-body">
+  <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+    <br/>
+    <h2 class="title">Matterport3D Qualitative Results: In-Distribution Trajectories</h2>
+      <div class="content has-text-justified">
+        <p class="content has-text-justified">
+          Similar to the RealEstate10K generations with in-distribution trajectories, the following examples also use in-distribution trajectories, but using an initial image and trajectory from Matterport3D.
+          Select a scene from the menu below.
+          <!--You can also select different samples from the same scene and trajectory to see multiple plausible extrapolations for each scene.-->
+          Then use the frame controls to view the generated views from all the models. 
+          We also include automated playback controls to cycle the frames forwards and backwards at various rates.
+        </p>
+      </div>
+      <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+        <h4 style="text-align:left;">Scene Selection</h2>
+        <div id='mp3d_real-scene-selector' class="row" style="margin-left:0.1em;">
+        </div>
+      </div>
+      <br/>
+      <div style='display:none;border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+        <h4 style="text-align:left;">Sample Instance</h2>
+        <p class="content has-text-justified">
+                The stochastic nature of these models allow multiple plausible realities to be sampled. We provide three here.
+        </p>
+        <div class="row">
+          <div id='mp3d_real_sample_selector_1' style='margin-left:1em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='real_viewer.change_sample(0);'> 1 </div>
+          <div id='mp3d_real_sample_selector_2' style='margin-left:0.4em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='real_viewer.change_sample(1);'> 2 </div>
+          <div id='mp3d_real_sample_selector_3' style='margin-left:0.4em;margin-right:1em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='real_viewer.change_sample(2);'> 3 </div>
+        </div>
+      </div>
+      <br/>
+      <h3 class="subtitle">Samples</h2>
+      <div class="row">
+        <div class=col-8 style='flex:0 0 50%;max-width:33%;margin:auto;'>
+          <img id='mp3d_real-lookout' style='width:100%;' src="assets/individual-frames/orbit/0000/sde/00/0001.webp">
+          <h5 class="subtitle">LookOut</h5>
+        </div>
+        <div class=col-8 style='flex:0 0 50%;max-width:33%;margin:auto;'>
+          <img id='mp3d_real-sde' style='width:100%;' src="assets/individual-frames/orbit/0000/sde/00/0001.webp">
+          <h5 class="subtitle">Ours</h5>
+        </div>
+      </div>
+      <br/>
+      <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+        <h4 style="text-align:left;">Frame Control (automated playback or manual slider)</h2>
+        <p class="content has-text-justified">
+                Notice how generated scenes diverge more with frames further to the right of the slider.
+        </p>
+        <div class="row">
+          <div class="col-2"> <div onclick='mp3d_real_viewer.stop_anim();' class=selectable>Stop animation</div> </div>
+          <div class="col-2"> <div onclick='mp3d_real_viewer.cycle_frames(200);' class=selectable>Cycle 5fps</div> </div>
+          <div class="col-2"> <div onclick='mp3d_real_viewer.cycle_frames(100);' class=selectable>Cycle 10fps</div> </div>
+        </div>
+        <br/>
+        <div class="row">
+          <input style="width:100%;margin-left:1em;margin-right:1em;" type="range" min="0" max="19" value="0" id='mp3d_real_frame_control' oninput='mp3d_real_viewer.change_frame(document.getElementById("mp3d_real_frame_control").value);'>
+        </div>
+      </div>
+  </div>
+  </div>
+</section>
+
+<br/>
+
+
+<section class="hero teaser">
+  <div class="hero-body">
+  <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+    <br/>
+    <h2 class="title">Matterport3D Qualitative Results: Out-of-Distribution Trajectories</h2>
+    <div class="content has-text-justified">
+      <p class="content has-text-justified">
+        Similar to the RealEstate10K generations with out-of-distribution trajectories, the following examples also use out-of-distribution trajectories, but using an initial image Matterport3D.
+        The following examples show the ability of our model to generate novel views using a variety of trajectories not typically found in the training data.
+        Select a scene and motion type for the camera trajectory.
+        <!--You can also select different samples from the same scene and trajectory to see multiple plausible extrapolations for each scene.-->
+        Then use the frame controls to view the generated views from all the models. 
+        We also include automated playback controls to cycle the frames forwards and backwards at various rates.
+      </p>
+    </div>
+      <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+        <h4 style="text-align:left;">Scene Selection</h2>
+        <div id='mp3d_novel-scene-selector' class="row" style="margin-left:0.1em;">
+        </div>
+      </div>
+      <br/>
+      <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+        <h4 style="text-align:left;">Motion Selection</h2>
+        <div class="row">
+          <div class="col-2"> <div id='mp3d_orbit_selector' onclick='mp3d_novel_viewer.change_variant("mp3d_orbit");' class=selectable>Orbit</div> </div>
+          <div class="col-2"> <div id='mp3d_spin_selector' onclick='mp3d_novel_viewer.change_variant("mp3d_spin");' class=selectable>Spin</div> </div>
+          <div class="col-2"> <div id='mp3d_hop_selector' onclick='mp3d_novel_viewer.change_variant("mp3d_hop");' class=selectable>Hop</div> </div>
+        </div>
+      </div>
+      <br/>
+      <div style='display:none;border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+        <h4 style="text-align:left;">Sample Instance</h2>
+        <p class="content has-text-justified">
+                The stochastic nature of these models allow multiple plausible realities to be sampled. We provide three here.
+        </p>
+        <div class="row">
+          <div id='mp3d_novel_sample_selector_1' style='margin-left:1em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='novel_viewer.change_sample(0);'> 1 </div>
+          <div id='mp3d_novel_sample_selector_2' style='margin-left:0.4em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='novel_viewer.change_sample(1);'> 2 </div>
+          <div id='mp3d_novel_sample_selector_3' style='margin-left:0.4em;margin-right:1em;cursor:pointer;background-color:rgb(240,240,240);border-radius:1em;padding:1em;' class='col selectable' onclick='novel_viewer.change_sample(2);'> 3 </div>
+        </div>
+      </div>
+      <br/>
+      <h3 class="subtitle">Samples</h2>
+      <div class="row">
+        <div class=col-3 style='flex:0 0 33%;max-width:33%;margin:auto;'>
+          <img id='mp3d_novel-lookout' style='width:100%;' src="assets/individual-frames/orbit/0000/sde/00/0001.webp">
+          <h5 class="subtitle">LookOut</h5>
+        </div>
+        <div class=col-3 style='flex:0 0 33%;max-width:33%;margin:auto;'>
+          <img id='mp3d_novel-sde' style='width:100%;' src="assets/individual-frames/orbit/0000/sde/00/0001.webp">
+          <h5 class="subtitle">Ours</h5>
+        </div>
+      </div>
+      <br/>
+      <div style='border-radius:1em;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding:1em;' class="container is-max-desktop has-text-centered">
+        <h4 style="text-align:left;">Frame Control (automated playback or manual slider)</h2>
+        <p class="content has-text-justified">
+                Notice how generated scenes diverge more with frames further to the right of the slider.
+        </p>
+        <div class="row">
+          <div class="col-2"> <div onclick='mp3d_novel_viewer.stop_anim();' class=selectable>Stop animation</div> </div>
+          <div class="col-2"> <div onclick='mp3d_novel_viewer.cycle_frames(200);' class=selectable>Cycle 5fps</div> </div>
+          <div class="col-2"> <div onclick='mp3d_novel_viewer.cycle_frames(100);' class=selectable>Cycle 10fps</div> </div>
+        </div>
+        <br/>
+        <div class="row">
+          <input style="width:100%;margin-left:1em;margin-right:1em;" type="range" min="0" max="9" value="0" id='mp3d_novel_frame_control' oninput='mp3d_novel_viewer.change_frame(document.getElementById("mp3d_novel_frame_control").value);'>
+        </div>
+      </div>
+  </div>
+  </div>
+</section>
+
+<br/>
+
 
 <section class="hero teaser">
   <div class="hero-body">
@@ -374,7 +516,7 @@ Novel view synthesis from a single input image is a challenging task, where the 
 <section class="section" id="BibTeX" style="padding-top:0;">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre style="border-radius:1em;"><code>@inproceedings{yu2023photoconsistentnvs,
+    <pre style="border-radius:1em;"><code>@inproceedings{Yu2023PhotoconsistentNVS,
   title={Long-Term Photometric Consistent Novel View Synthesis with Diffusion Models},
   author={Jason J. Yu and Fereshteh Forghani and Konstantinos G. Derpanis and Marcus A. Brubaker},
   booktitle={{Proceedings of the International Conference on Computer Vision ({ICCV})}},
