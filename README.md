@@ -52,7 +52,9 @@ Training uses PyTorch DDP. An example slurm script is provided under `src/launch
 
 ## Pretrained weights
 RealEstate10K VQGAN weights: [Google Drive](https://drive.google.com/file/d/1SF8BWzKk9nggX1l0BiDJnYuxhX-g9dvd/view?usp=sharing)
+
 RealEstate10K diffusion model weights: [Google Drive](https://drive.google.com/file/d/1bv_NF0UWH2DVYa93NUIxRvjUXipJSBQg/view?usp=sharing)
+
 Please place the first stage VQGAN weights under `instance-data/taming-32-4-realestate-256.ckpt` and the diffusion model weights under `instance-data/checkpoints/2000-00000000.pth`.
 
 ## Sampling
