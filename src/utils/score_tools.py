@@ -3,7 +3,7 @@ import random
 import pudb
 
 class Score_sde_model(torch.nn.Module):
-	def __init__(self,score_model,sde,ray_downsampler,rays_require_downsample=True):
+	def __init__(self,score_model,sde,ray_downsampler,rays_require_downsample=True,rays_as_list=False):
 		super().__init__()
 		self.score_model = score_model
 		self.sde = sde
@@ -11,14 +11,17 @@ class Score_sde_model(torch.nn.Module):
 
 		self.ray_downsampler = ray_downsampler
 		self.rays_require_downsample = rays_require_downsample
+		self.rays_as_list = rays_as_list
 
 	def score(self,x,cond_im,t, ff_ref, ff_a, ff_b):
-		# d_ff_ref = self.ray_downsampler(ff_ref) if self.rays_require_downsample else ff_ref
-		# d_ff_a = self.ray_downsampler(ff_a) if self.rays_require_downsample else ff_a
-		# d_ff_b = self.ray_downsampler(ff_b) if self.rays_require_downsample else ff_b
-		d_ff_ref = [self.ray_downsampler(rays) for rays in ff_ref] if self.rays_require_downsample else ff_ref
-		d_ff_a = [self.ray_downsampler(rays) for rays in ff_a] if self.rays_require_downsample else ff_a
-		d_ff_b = [self.ray_downsampler(rays) for rays in ff_b] if self.rays_require_downsample else ff_b
+		if self.rays_as_list:
+			d_ff_ref = [self.ray_downsampler(rays) for rays in ff_ref] if self.rays_require_downsample else ff_ref
+			d_ff_a = [self.ray_downsampler(rays) for rays in ff_a] if self.rays_require_downsample else ff_a
+			d_ff_b = [self.ray_downsampler(rays) for rays in ff_b] if self.rays_require_downsample else ff_b
+		else:
+			d_ff_ref = self.ray_downsampler(ff_ref) if self.rays_require_downsample else ff_ref
+			d_ff_a = self.ray_downsampler(ff_a) if self.rays_require_downsample else ff_a
+			d_ff_b = self.ray_downsampler(ff_b) if self.rays_require_downsample else ff_b
 		_, std = self.sde.marginal_prob(torch.zeros_like(x), t)
 		cond_std = torch.ones_like(std)*0.01 # assume conditioning image has minimal noise
 		score_a, score_b = self.score_model(x, cond_im, std, cond_std, d_ff_ref, d_ff_a, d_ff_b) # ignore second score

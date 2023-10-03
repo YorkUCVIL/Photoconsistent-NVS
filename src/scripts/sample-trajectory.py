@@ -66,7 +66,7 @@ class Sampling_job:
 		self.image_path = None
 		self.next_gen_idx = None
 	def get_runs(self):
-		gen_runs = [int(x) for x in os.listdir(pjoin(self.scene_root,'samples'))]
+		gen_runs = [int(x) for x in os.listdir(pjoin(self.scene_root,'samples')) if x != '.gitignore']
 		gen_runs.sort()
 		return gen_runs
 	def create_new_run(self):
@@ -128,7 +128,7 @@ if __name__ == '__main__':
 	ray_downsampler = torch.nn.Sequential(
 		ResnetBlock(in_ch=56,out_ch=128,down=True),
 		ResnetBlock(in_ch=128,out_ch=128,down=True)).cuda()
-	score_sde = Score_sde_model(score_model,sde,ray_downsampler,rays_require_downsample=False)
+	score_sde = Score_sde_model(score_model,sde,ray_downsampler,rays_require_downsample=False,rays_as_list=True)
 
 	# load model, need to adapt, DDP changes key names
 	checkpoint_epoch = cli_args.epoch
