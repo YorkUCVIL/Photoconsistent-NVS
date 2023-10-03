@@ -2,9 +2,10 @@
 [Project Page](https://yorkucvil.github.io/Photoconsistent-NVS)
 
 ## Python environment
-Please install the included environment in the root of this repo:
+Please install the included environments in the root of this repo:
 ```
 conda env create -f environment.yaml
+conda env create -f environment-colmap.yaml
 ```
 
 ## Directory structure
@@ -48,6 +49,7 @@ python extract-poses.py train
 ```
 
 ## Training
+Please train with the `photoconsistent-nvs` environment.
 Training uses PyTorch DDP. An example slurm script is provided under `src/launch-scripts/train-deploy.sh`.
 
 ## Pretrained weights
@@ -58,6 +60,7 @@ RealEstate10K diffusion model weights: [Google Drive](https://drive.google.com/f
 Please place the first stage VQGAN weights under `instance-data/taming-32-4-realestate-256.ckpt` and the diffusion model weights under `instance-data/checkpoints/2000-00000000.pth`.
 
 ## Sampling
+Please use the `photoconsistent-nvs` environment.
 Sampling requires a specific directory structure per sequence to specify the desired camera pose and the given source image.
 The directory will also contain the generated samples, and any intermediate files generated for evaluation.
 An example is provided under `instance-data/samples`:
@@ -77,4 +80,10 @@ python scripts/sample-trajectory.py -o samples/584f2fc6d686aebc
 ```
 
 ## Thresholded Symmetric Epipolar Distance (TSED)
-Coming soon!
+Please use the `photoconsistent-nvs-eval` environment.
+Evaluating TSED of an evaluated trajectory is performed by computing SIFT matches, computing the SED for each matched keypoint, and computing the final TSED over neighboring pairs:
+```
+python colmap-recover-matches.py -o samples/584f2fc6d686aebc
+python compute_sed.py -o samples/584f2fc6d686aebc
+python eval_consistency.py -o samples/584f2fc6d686aebc
+```
