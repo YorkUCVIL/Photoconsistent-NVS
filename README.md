@@ -7,6 +7,13 @@ Please install the included environments in the root of this repo:
 conda env create -f environment.yaml
 conda env create -f environment-colmap.yaml
 ```
+Training requires Torchvision with video_reader support, requiring the library to be built from source.
+This can be done by first activating the training conda environment `photoconsistent-nvs`, and cloning the Torchvision repo somewhere on your system: `https://github.com/pytorch/vision/tree/release/0.11`.
+Checkout the `release/0.11` branch of Torchvision, and run:
+```
+python setup.py install
+```
+This should detect the ffmpeg installation in the environment and install Torchvision with video_reader enabled.
 
 ## Directory structure
 ```
